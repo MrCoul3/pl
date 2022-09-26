@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-
+import { PlayerInstance } from "../PlayerInstance";
+import style from "./style.module.css";
 interface IProps {
-  input: any;
+  input: string[];
 }
 
 export const MainPlayerFrame = (props: IProps) => {
@@ -10,11 +11,13 @@ export const MainPlayerFrame = (props: IProps) => {
   }, [props.input]);
 
   return (
-    <div
-      id="mainPlayerFrame"
-      style={{ width: "600px", height: "350px", background: "#a1a1a1" }}
-    >
-      {props.input.map((instance: any) => <div>{instance.url}</div>)}
-    </div>
+    <>
+
+      <section className={style.mainFrame}>
+        {props.input.map((input) => (
+            <PlayerInstance input={input} />
+        ))}
+      </section>
+    </>
   );
 };

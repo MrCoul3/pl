@@ -1,0 +1,7 @@
+.mainFrame {
+    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.3);
+    width: 1000px;
+    height: 400px;
+    background: #FEFEFE;
+    border-radius: 6px;
+}

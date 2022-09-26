@@ -1,17 +1,18 @@
 import { MainPlayerFrame } from "./component/MainPlayerFrame/MainPlayerFrame";
 import { RecordList } from "./component/RecordList/RecordList";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { PlayerInstance } from "./models/PlayerInstance";
 
 export const PlayerApp = () => {
-  const [players, setPlayers] = useState<any>([]);
+  const [players, setPlayers] = useState<Array<string>>([]);
 
   function onClick(e: React.MouseEvent) {
-    console.log((e.target as HTMLButtonElement).value);
-    setPlayers((prevState: any) => [
-      ...prevState,
-      new PlayerInstance((e.target as HTMLButtonElement).value),
-    ]);
+    const player = (e.target as HTMLButtonElement).value;
+    setPlayers((prevState) =>
+      prevState.includes(player)
+        ? prevState.filter((state) => state !== player)
+        : [...prevState, player]
+    );
   }
 
   return (
