@@ -1,8 +1,16 @@
-import React from "react";
+import React, { Ref, useRef } from "react";
 
 interface IInput {
   input: string;
+  currentVideo: Ref<HTMLVideoElement>;
 }
 export const PlayerInstance = (props: IInput) => {
-  return <video controls width="400px" src={props.input}></video>;
+  return (
+    <video
+      ref={props.currentVideo}
+      autoPlay
+      width="400px"
+      src={props.input}
+    />
+  );
 };
