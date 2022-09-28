@@ -1,10 +1,16 @@
-.mainFrame {
+.playerFrame {
+    position: relative;
     display: flex;
     box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.3);
     width: 1000px;
-    height: 400px;
+    height: 612px;
     background: #FEFEFE;
     border-radius: 6px;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.videoFrames {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }

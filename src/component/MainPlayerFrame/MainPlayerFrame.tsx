@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PlayerInstance } from "../PlayerInstance";
+import { PlayerInstance } from "../PlayerInstance/PlayerInstance";
 import style from "./style.module.css";
 import { Button } from "@mui/material";
 import { PLAYER_STATUSES } from "../../enums/PlayerStatuses";
@@ -25,13 +25,21 @@ export const MainPlayerFrame = (props: IProps) => {
       setPlayerStatus(PLAYER_STATUSES.pause);
   }
 
+  function setGridStyle() {
+    if (props.input.length > 4 && props.input.length <= 9) {
+      return {gridTemplateColumns: "repeat(3, 1fr)"}
+    }
+  }
+
   return (
     <>
-      <section className={style.mainFrame}>
-
-        <div>
+      <section className={style.playerFrame}>
+        <div style={setGridStyle()} className={style.videoFrames}>
           {props.input.map((input) => (
-            <PlayerInstance playerStatus={playerStatus} input={input} />
+            <PlayerInstance
+              playerStatus={playerStatus}
+              input={input}
+            />
           ))}
         </div>
 
