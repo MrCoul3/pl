@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { PlayerInstance } from "../PlayerInstance/PlayerInstance";
 import style from "./style.module.css";
-import { Button } from "@mui/material";
+import { PlayerInstance } from "../PlayerInstance/PlayerInstance";
 import { PLAYER_STATUSES } from "../../enums/PlayerStatuses";
 import { NavigationPanel } from "../NavigationPanel/NavigationPanel";
 
@@ -30,6 +29,7 @@ export const MainPlayerFrame = (props: IProps) => {
       return {gridTemplateColumns: "repeat(3, 1fr)"}
     }
   }
+//  TODO: вынести в отдельный компонент   videoFrames
 
   return (
     <>
