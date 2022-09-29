@@ -12,7 +12,7 @@ export const PlayerInstance = (props: IInput) => {
   const [currentTime, setCurrentTime] = useState<number | undefined>(0);
 
   const videoElement = () => {
-    if (currentVideo.current !== null) {
+    if (currentVideo.current) {
       const current = currentVideo.current as HTMLVideoElement;
       return current;
     }
@@ -29,18 +29,24 @@ export const PlayerInstance = (props: IInput) => {
 
   useEffect(() => {
     actions();
+    const durationInMills = videoElement()?.duration;
+    if (durationInMills) console.log(durationInMills * 1000);
   }, [props.playerStatus]);
 
   useEffect(() => {
-    videoElement()?.addEventListener("timeupdate", (e) => {
+    function videoElementListener() {
       setCurrentTime(videoElement()?.currentTime);
-    });
+    }
+    videoElement()?.addEventListener("timeupdate", videoElementListener);
+    return () => {
+      videoElement()?.removeEventListener("timeupdate", videoElementListener);
+    };
   }, []);
 
   return (
     <div className={style.instanceWrap}>
       <span className={style.timestamp}>{currentTime}</span>
-      <video ref={currentVideo} width= "100%" src={props.input} />
+      <video ref={currentVideo} width="100%" src={props.input} />
     </div>
   );
 };

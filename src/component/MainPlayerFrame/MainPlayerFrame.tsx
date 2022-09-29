@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
-import { PlayerInstance } from "../PlayerInstance/PlayerInstance";
 import { PLAYER_STATUSES } from "../../enums/PlayerStatuses";
 import { NavigationPanel } from "../NavigationPanel/NavigationPanel";
+import { VideoFramesComponent } from "../VideoFramesComponent/VideoFramesComponent";
 
 interface IProps {
   input: string[];
 }
 
 export const MainPlayerFrame = (props: IProps) => {
-  useEffect(() => {
-    console.log(props.input);
-  }, [props.input]);
-
   const [playerStatus, setPlayerStatus] = useState<PLAYER_STATUSES>(
     PLAYER_STATUSES.pause
   );
@@ -24,25 +20,10 @@ export const MainPlayerFrame = (props: IProps) => {
       setPlayerStatus(PLAYER_STATUSES.pause);
   }
 
-  function setGridStyle() {
-    if (props.input.length > 4 && props.input.length <= 9) {
-      return {gridTemplateColumns: "repeat(3, 1fr)"}
-    }
-  }
-//  TODO: вынести в отдельный компонент   videoFrames
-
   return (
     <>
       <section className={style.playerFrame}>
-        <div style={setGridStyle()} className={style.videoFrames}>
-          {props.input.map((input) => (
-            <PlayerInstance
-              playerStatus={playerStatus}
-              input={input}
-            />
-          ))}
-        </div>
-
+        <VideoFramesComponent status={playerStatus} inputs={props.input} />
         <NavigationPanel status={playerStatus} action={playerAction} />
       </section>
     </>

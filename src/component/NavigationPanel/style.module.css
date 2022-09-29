@@ -1,4 +1,10 @@
 .navigationPanel {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: center;
 }
