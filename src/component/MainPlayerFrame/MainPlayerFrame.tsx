@@ -3,9 +3,10 @@ import style from "./style.module.css";
 import { PLAYER_STATUSES } from "../../enums/PlayerStatuses";
 import { NavigationPanel } from "../NavigationPanel/NavigationPanel";
 import { VideoFramesComponent } from "../VideoFramesComponent/VideoFramesComponent";
+import {IRecordData} from "../../interfaces/IRecordData";
 
 interface IProps {
-  input: string[];
+  input: IRecordData[];
 }
 
 export const MainPlayerFrame = (props: IProps) => {

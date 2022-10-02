@@ -1,24 +1,28 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
-import {PlayerApp} from "./PlayerApp";
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { PlayerApp } from "./PlayerApp";
 import { Provider } from "mobx-react";
-import {AppStore} from "./store/AppStore";
+import { AppStore } from "./store/AppStore";
 
-const container = document.getElementById('root')!;
-const root = createRoot(container);
+const container = document.getElementById("root")!;
 const store = new AppStore();
 
+/*
 
 root.render(
   <React.StrictMode>
-      {/*<App />*/}
+      {/!*<App />*!/}
       <Provider store={store}>
           <PlayerApp />
       </Provider>,
   </React.StrictMode>
 );
+*/
 
-
-reportWebVitals();
+ReactDOM.render(
+  <Provider store={store}>
+    <PlayerApp />
+  </Provider>,
+  document.getElementById("root")
+);

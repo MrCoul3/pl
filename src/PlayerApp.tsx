@@ -1,24 +1,30 @@
 import { MainPlayerFrame } from "./component/MainPlayerFrame/MainPlayerFrame";
 import { RecordList } from "./component/RecordList/RecordList";
-import React, {useEffect, useState} from "react";
-import { PlayerInstance } from "./models/PlayerInstance";
+import React, { useState } from "react";
+import { IRecordData } from "./interfaces/IRecordData";
 
 export const PlayerApp = () => {
-  const [players, setPlayers] = useState<Array<string>>([]);
+  const [records, setRecords] = useState<Array<IRecordData>>([
+    {
+      name: "id_1.mp4",
+      duration: 144160, //  2.24sec
+      startTime: 1664575200000, // 01:00:00 01.10
+      id: "123456sdfg",
+    },
+  ]);
 
-  function onClick(e: React.MouseEvent) {
-    const player = (e.target as HTMLButtonElement).value;
-    setPlayers((prevState) =>
-      prevState.includes(player)
-        ? prevState.filter((state) => state !== player)
-        : [...prevState, player]
+  function onClick(e: React.MouseEvent, record: IRecordData) {
+    setRecords((prevState) =>
+      prevState.find((state) => state.id === record.id)
+        ? prevState.filter((state) => state.id !== record.id)
+        : [...prevState, record]
     );
   }
 
   return (
     <>
-      <MainPlayerFrame input={players} />
-      <RecordList onClick={(e) => onClick(e)} />
+      <MainPlayerFrame input={records} />
+      <RecordList onClick={(e, record) => onClick(e, record)} />
     </>
   );
 };

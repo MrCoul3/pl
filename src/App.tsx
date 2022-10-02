@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { BoardComponent } from "./component/BoardComponent";
 import { Board } from "./models/Board";
 
 function App() {

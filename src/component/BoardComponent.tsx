@@ -11,13 +11,13 @@ export const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
   return (
     <div className="board">
       {/* отрисовать доску 16:01*/}
-      {board.cells.map((row, index) => (
+     {/* {board.cells.map((row, index) => (
         <React.Fragment key={index}>
           {row.map((cell, index) => (
             <CellComponent cell={cell} key={cell.id} />
           ))}
         </React.Fragment>
-      ))}
+      ))}*/}
     </div>
   );
 };
