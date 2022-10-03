@@ -1,4 +1,4 @@
-import { MainPlayerFrame } from "./component/MainPlayerFrame/MainPlayerFrame";
+import { Player } from "./component/Player/Player";
 import { RecordList } from "./component/RecordList/RecordList";
 import React, { useState } from "react";
 import { IRecordData } from "./interfaces/IRecordData";
@@ -23,7 +23,7 @@ export const PlayerApp = () => {
 
   return (
     <>
-      <MainPlayerFrame input={records} />
+      <Player input={records} />
       <RecordList onClick={(e, record) => onClick(e, record)} />
     </>
   );

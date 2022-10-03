@@ -5,7 +5,6 @@ import { PlayerApp } from "./PlayerApp";
 import { Provider } from "mobx-react";
 import { AppStore } from "./store/AppStore";
 
-const container = document.getElementById("root")!;
 const store = new AppStore();
 
 /*

@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { PLAYER_STATUSES } from "../../enums/PlayerStatuses";
+import { EnumPlayerStates } from "../../enums/Enums";
 import style from "./style.module.css";
 import { IRecordData } from "../../interfaces/IRecordData";
 import { URI } from "../../config/config";
@@ -13,7 +13,7 @@ import { useStore } from "../../hooks/useStore";
 
 interface IInput {
   record: IRecordData;
-  playerStatus: string;
+  playerState: string;
 }
 export const PlayerInstance = (props: IInput) => {
   const store = useStore();
@@ -23,10 +23,10 @@ export const PlayerInstance = (props: IInput) => {
   const [currentTime, setCurrentTime] = useState<number | undefined>(0);
 
   function actions() {
-    if (props.playerStatus === PLAYER_STATUSES.play) {
+    if (props.playerState === EnumPlayerStates.play) {
       (currentVideo.current as HTMLVideoElement).play();
     }
-    if (props.playerStatus === PLAYER_STATUSES.pause) {
+    if (props.playerState === EnumPlayerStates.pause) {
       (currentVideo.current as HTMLVideoElement).pause();
     }
   }
@@ -44,7 +44,7 @@ export const PlayerInstance = (props: IInput) => {
       setCurrentTime((currentVideo.current as HTMLVideoElement).currentTime);
     }
     actions();
-    (currentVideo.current as HTMLVideoElement).addEventListener(
+    (currentVideo.current as HTMLVideoElement). addEventListener(
       "timeupdate",
       videoElementListener
     );
@@ -54,7 +54,7 @@ export const PlayerInstance = (props: IInput) => {
         videoElementListener
       );
     };
-  }, [props.playerStatus]);
+  }, [props.playerState]);
 
   return (
     <div className={style.instanceWrap}>

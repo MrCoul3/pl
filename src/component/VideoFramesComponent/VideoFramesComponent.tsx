@@ -1,12 +1,12 @@
 import { observer } from "mobx-react";
-import style from "../MainPlayerFrame/style.module.css";
+import style from "../Player/style.module.css";
 import { PlayerInstance } from "../PlayerInstance/PlayerInstance";
 import React from "react";
-import { PLAYER_STATUSES } from "../../enums/PlayerStatuses";
+import { EnumPlayerStates } from "../../enums/Enums";
 import { IRecordData } from "../../interfaces/IRecordData";
 interface IProps {
   inputs: IRecordData[];
-  status: PLAYER_STATUSES;
+  playerState: EnumPlayerStates;
 }
 export const VideoFramesComponent = observer((props: IProps) => {
   function setGridStyle() {
@@ -23,7 +23,7 @@ export const VideoFramesComponent = observer((props: IProps) => {
         <PlayerInstance
           key={input.id}
           record={input}
-          playerStatus={props.status}
+          playerState={props.playerState}
         />
       ))}
     </div>
