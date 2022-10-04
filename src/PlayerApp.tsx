@@ -2,6 +2,7 @@ import { Player } from "./component/Player/Player";
 import { RecordList } from "./component/RecordList/RecordList";
 import React, { useState } from "react";
 import { IRecordData } from "./interfaces/IRecordData";
+import {FlexContainer} from "./component/FlexContainer/FlexContainer";
 
 export const PlayerApp = () => {
   const [records, setRecords] = useState<Array<IRecordData>>([
@@ -22,9 +23,9 @@ export const PlayerApp = () => {
   }
 
   return (
-    <>
+    <FlexContainer overflow="hidden" height="100vh">
       <Player input={records} />
       <RecordList onClick={(e, record) => onClick(e, record)} />
-    </>
+    </FlexContainer>
   );
 };

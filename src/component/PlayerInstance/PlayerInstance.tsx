@@ -57,14 +57,15 @@ export const PlayerInstance = (props: IInput) => {
   }, [props.playerState]);
 
   return (
-    <div className={style.instanceWrap}>
+    <>
       <span className={style.timestamp}>{currentTime}</span>
       <video
         className={"video"}
+        // style={{objectFit: "cover"}}
         ref={currentVideo}
-        width="100%"
+        style={{width: "100%"}}
         src={URI + props.record.name}
       />
-    </div>
+    </>
   );
 };
