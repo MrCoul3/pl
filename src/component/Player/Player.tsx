@@ -26,7 +26,7 @@ export const Player = observer((props: IProps) => {
   }
 
   function hotkeys(e: KeyboardEvent) {
-    // console.debug(e.code);
+    console.debug(e.code);
     if (e.code === EnumHotKeys.space) {
       playerAction();
     }

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import style from "./style.module.css";
-import { EnumPlayerStates } from "../../enums/Enums";
+import { EnumPlayerStates, EnumScaleConstants } from "../../enums/Enums";
 import { Button } from "@mui/material";
 import React, {
   ChangeEvent,
@@ -36,22 +36,43 @@ export const NavigationPanel = observer((props: INavPanel) => {
     store.setCurrentTimeStamp(+target.value);
   }
 
-  const [scaleValues, setScaleValues] = useState(150000);
+  const [scaleValue, setScaleValue] = useState(150000);
 
   const onChangeScale = (e: React.WheelEvent<HTMLInputElement>) => {
     const direction = Math.sign(e.deltaY);
-    console.debug('direction: ', direction);
-    if (direction === -1) {
+    console.debug("direction: ", direction);
+    // 1 800 000 мсек/час
+    // 21 600 000 мсек/день
+    if (scaleValue === EnumScaleConstants.minutes) {
+      if (direction === 1) {
+        setScaleValue(EnumScaleConstants.hours);
+      }
+    }
+    if (scaleValue === EnumScaleConstants.hours) {
+      if (direction === 1) {
+        setScaleValue(EnumScaleConstants.days);
+      }
+      if (direction === -1) {
+        setScaleValue(EnumScaleConstants.minutes);
+      }
+    }
+    if (scaleValue === EnumScaleConstants.days) {
+      if (direction === -1) {
+        setScaleValue(EnumScaleConstants.hours);
+      }
+    }
+
+    /*if (direction === -1) {
       setScaleValues((prevState) => prevState - 100000);
     }
     if (direction === 1) {
       setScaleValues((prevState) => prevState + 100000);
-    }
+    }*/
   };
 
   useEffect(() => {
-    console.debug('scaleValues: ', scaleValues);
-  }, [scaleValues]);
+    console.debug("scaleValues: ", setScaleValue);
+  }, [setScaleValue]);
 
   return (
     <>
@@ -63,18 +84,22 @@ export const NavigationPanel = observer((props: INavPanel) => {
             onChange={(e) => onHandleChange(e)}
             className={style.timeRangerInput}
             id="timeRanger"
-            min={store.currentTimeStamp - scaleValues}
-            max={store.currentTimeStamp + scaleValues}
+            min={store.currentTimeStamp - scaleValue}
+            max={store.currentTimeStamp + scaleValue}
             step="1000"
             type="range"
           />
           <div className={style.timeScale}>
             <span>
-              {moment(store.currentTimeStamp - scaleValues).format("HH:mm:ss")}
+              {moment(store.currentTimeStamp - scaleValue).format(
+                "HH:mm:ss"
+              )}
             </span>
             <div>{moment(store.currentTimeStamp).format("HH:mm:ss")}</div>
             <span>
-              {moment(store.currentTimeStamp + scaleValues).format("HH:mm:ss")}
+              {moment(store.currentTimeStamp + scaleValue).format(
+                "HH:mm:ss"
+              )}
             </span>
           </div>
         </div>

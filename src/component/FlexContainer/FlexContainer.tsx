@@ -8,6 +8,7 @@ interface IProps {
   width?: string;
   height?: string;
   overflow?:string;
+  flexWrap?:any;
   jContent?: 'center' | 'flex-end' | 'flex-start' | 'space-between';
   alignItems?: 'center' | 'flex-end' | 'flex-start';
   fDirection?:'column' | 'row';
@@ -25,6 +26,7 @@ export const FlexContainer = (props: IProps) => {
     justifyContent: props.jContent,
     alignItems: props.alignItems,
     flexDirection: props.fDirection,
+    flexWrap: props.flexWrap
   };
 
   return (

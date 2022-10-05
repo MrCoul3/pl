@@ -16,6 +16,9 @@ export const VideoFramesComponent = observer((props: IProps) => {
     if (props.inputs.length === 1) {
       return { gridTemplateColumns: "repeat(1, 1fr)" };
     }
+    if (props.inputs.length > 1) {
+      return { gridTemplateColumns: "repeat(2, 1fr)" };
+    }
   }
   return (
     <div style={setGridStyle()} className={style.videoFrames}>

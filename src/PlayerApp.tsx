@@ -23,7 +23,7 @@ export const PlayerApp = () => {
   }
 
   return (
-    <FlexContainer overflow="hidden" height="100vh">
+    <FlexContainer  jContent="space-between">
       <Player input={records} />
       <RecordList onClick={(e, record) => onClick(e, record)} />
     </FlexContainer>

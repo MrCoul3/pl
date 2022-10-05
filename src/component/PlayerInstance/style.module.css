@@ -2,3 +2,7 @@
     position: absolute;
 }
 
+.video {
+    object-fit: cover;
+    width: 100%;
+}
