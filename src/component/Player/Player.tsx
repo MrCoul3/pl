@@ -5,7 +5,7 @@ import { NavigationPanel } from "../NavigationPanel/NavigationPanel";
 import { VideoFramesComponent } from "../VideoFramesComponent/VideoFramesComponent";
 import { IRecordData } from "../../interfaces/IRecordData";
 import { useStore } from "../../hooks/useStore";
-import {observer} from "mobx-react";
+import { observer } from "mobx-react";
 
 interface IProps {
   input: IRecordData[];
@@ -42,8 +42,14 @@ export const Player = observer((props: IProps) => {
   return (
     <>
       <section className={style.playerFrame}>
-        <VideoFramesComponent playerState={store.playerState} inputs={props.input} />
-        <NavigationPanel playerState={store.playerState} action={playerAction} />
+        <VideoFramesComponent
+          playerState={store.playerState}
+          inputs={props.input}
+        />
+        <NavigationPanel
+          playerState={store.playerState}
+          action={playerAction}
+        />
       </section>
     </>
   );

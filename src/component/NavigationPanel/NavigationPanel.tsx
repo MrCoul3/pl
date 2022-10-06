@@ -61,24 +61,39 @@ export const NavigationPanel = observer((props: INavPanel) => {
         setScaleValue(EnumScaleConstants.hours);
       }
     }
-
-    /*if (direction === -1) {
-      setScaleValues((prevState) => prevState - 100000);
-    }
-    if (direction === 1) {
-      setScaleValues((prevState) => prevState + 100000);
-    }*/
   };
 
+  const [sliderPos, setSliderPos] = useState<string>();
+
+  function calcSliderPos(e: any) {
+    console.log(e)
+    return (
+      (e.offsetX / e.target.clientWidth) *
+      parseInt(e.target.getAttribute("max"), 10)
+    );
+  }
+  function onMouseMove(e: React.MouseEvent<HTMLInputElement>) {
+    setSliderPos(calcSliderPos(e).toFixed(2));
+
+  }
   useEffect(() => {
     console.debug("scaleValues: ", setScaleValue);
-  }, [setScaleValue]);
+    // console.debug("sliderPos: ", sliderPos);
+  }, [setScaleValue, sliderPos]);
 
   return (
     <>
       <div className={style.navigationPanel}>
         <div className={style.timeRanger}>
+          <div className={style.scaleLine}>
+            {/*<div className={style.scaleSerif}></div>*/}
+            {/*<div className={style.scaleSerif}></div>*/}
+            <div className={style.scaleLineCenter}></div>
+            {/*<div className={style.scaleSerif}></div>*/}
+            {/*<div className={style.scaleSerif}></div>*/}
+          </div>
           <input
+            onMouseMove={onMouseMove}
             onWheel={onChangeScale}
             value={store.currentTimeStamp}
             onChange={(e) => onHandleChange(e)}
@@ -91,19 +106,24 @@ export const NavigationPanel = observer((props: INavPanel) => {
           />
           <div className={style.timeScale}>
             <span>
-              {moment(store.currentTimeStamp - scaleValue).format(
+              {moment(store.currentTimeStamp - scaleValue).format("HH:mm:ss")}
+            </span>
+            <span>
+              {moment(store.currentTimeStamp - scaleValue / 2).format(
                 "HH:mm:ss"
               )}
             </span>
             <div>{moment(store.currentTimeStamp).format("HH:mm:ss")}</div>
             <span>
-              {moment(store.currentTimeStamp + scaleValue).format(
+              {moment(store.currentTimeStamp + scaleValue / 2).format(
                 "HH:mm:ss"
               )}
             </span>
+            <span>
+              {moment(store.currentTimeStamp + scaleValue).format("HH:mm:ss")}
+            </span>
           </div>
         </div>
-
         <div className={style.flexContainer}>
           <Button onClick={props.action}>
             {props.playerState === EnumPlayerStates.pause ? "Play" : "Pause"}
