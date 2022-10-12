@@ -27,6 +27,7 @@ export const NavigationPanel = observer((props: INavPanel) => {
 
   function onHandleChange(e: ChangeEvent<HTMLInputElement>) {
     const target = e.currentTarget;
+    console.log(target.value);
     // TODO: привязать движение слайдера к времени роликов (двигая слайдер - изменять время роликов)
     console.debug(
       "currentTimeStamp",
@@ -40,9 +41,6 @@ export const NavigationPanel = observer((props: INavPanel) => {
 
   const onChangeScale = (e: React.WheelEvent<HTMLInputElement>) => {
     const direction = Math.sign(e.deltaY);
-    console.debug("direction: ", direction);
-    // 1 800 000 мсек/час
-    // 21 600 000 мсек/день
     if (scaleValue === EnumScaleConstants.minutes) {
       if (direction === 1) {
         setScaleValue(EnumScaleConstants.hours);
@@ -57,8 +55,16 @@ export const NavigationPanel = observer((props: INavPanel) => {
       }
     }
     if (scaleValue === EnumScaleConstants.days) {
+      if (direction === 1) {
+        setScaleValue(EnumScaleConstants.months);
+      }
       if (direction === -1) {
         setScaleValue(EnumScaleConstants.hours);
+      }
+    }
+    if (scaleValue === EnumScaleConstants.months) {
+      if (direction === -1) {
+        setScaleValue(EnumScaleConstants.days);
       }
     }
   };
@@ -66,32 +72,29 @@ export const NavigationPanel = observer((props: INavPanel) => {
   const [sliderPos, setSliderPos] = useState<string>();
 
   function calcSliderPos(e: any) {
-    console.log(e)
     return (
-      (e.offsetX / e.target.clientWidth) *
+      (e.clientX / e.target.clientWidth) *
       parseInt(e.target.getAttribute("max"), 10)
     );
   }
   function onMouseMove(e: React.MouseEvent<HTMLInputElement>) {
-    setSliderPos(calcSliderPos(e).toFixed(2));
-
+    // setSliderPos( calcSliderPos(e).toFixed(0));
   }
   useEffect(() => {
-    console.debug("scaleValues: ", setScaleValue);
-    // console.debug("sliderPos: ", sliderPos);
+    console.debug("scaleValues: ", scaleValue);
   }, [setScaleValue, sliderPos]);
 
   return (
     <>
       <div className={style.navigationPanel}>
         <div className={style.timeRanger}>
-          <div className={style.scaleLine}>
-            {/*<div className={style.scaleSerif}></div>*/}
-            {/*<div className={style.scaleSerif}></div>*/}
+          {/* <div className={style.scaleLine}>
+            <div className={style.scaleSerif}></div>
+            <div className={style.scaleSerif}></div>
             <div className={style.scaleLineCenter}></div>
-            {/*<div className={style.scaleSerif}></div>*/}
-            {/*<div className={style.scaleSerif}></div>*/}
-          </div>
+            <div className={style.scaleSerif}></div>
+            <div className={style.scaleSerif}></div>
+          </div>*/}
           <input
             onMouseMove={onMouseMove}
             onWheel={onChangeScale}
@@ -105,23 +108,28 @@ export const NavigationPanel = observer((props: INavPanel) => {
             type="range"
           />
           <div className={style.timeScale}>
-            <span>
-              {moment(store.currentTimeStamp - scaleValue).format("HH:mm:ss")}
-            </span>
-            <span>
-              {moment(store.currentTimeStamp - scaleValue / 2).format(
-                "HH:mm:ss"
-              )}
-            </span>
-            <div>{moment(store.currentTimeStamp).format("HH:mm:ss")}</div>
+            <div className={style.timelineValue}>
+              <span>{moment(store.currentTimeStamp - scaleValue ).format("HH:mm:ss")}</span>
+              <span>{moment(store.currentTimeStamp - scaleValue).format("DD.MM.YYYY")}</span>
+            </div>
+            <div className={style.timelineValue}>
+              <span>{moment(store.currentTimeStamp - scaleValue / 2).format("HH:mm:ss")}</span>
+            </div>
+
+            <div className={style.timelineValue}>
+              <span>{moment(store.currentTimeStamp).format("HH:mm:ss")}</span>
+              <span>{moment(store.currentTimeStamp).format("DD.MM.YYYY")}</span>
+            </div>
+
             <span>
               {moment(store.currentTimeStamp + scaleValue / 2).format(
                 "HH:mm:ss"
               )}
             </span>
-            <span>
-              {moment(store.currentTimeStamp + scaleValue).format("HH:mm:ss")}
-            </span>
+            <div className={style.timelineValue}>
+              <span>{moment(store.currentTimeStamp + scaleValue).format("HH:mm:ss")}</span>
+              <span>{moment(store.currentTimeStamp + scaleValue).format("DD.MM.YYYY")}</span>
+            </div>
           </div>
         </div>
         <div className={style.flexContainer}>

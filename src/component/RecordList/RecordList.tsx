@@ -12,6 +12,7 @@ export const RecordList = (props: IProps) => {
   const uri = "Videos/";
   return (
     <FlexContainer
+      alignContent={"flex-start"}
       overflow="auto"
       jContent="flex-start"
       flexWrap="wrap"
@@ -129,7 +130,7 @@ export const RecordList = (props: IProps) => {
         // "id_5.mp4",
         // "id_6.mp4",
       ].map((record) => (
-        <div className={style.record}>
+        <span className={style.record}>
           <Button
             key={record.id}
             color="info"
@@ -140,7 +141,7 @@ export const RecordList = (props: IProps) => {
           >
             {record.name}
           </Button>
-        </div>
+        </span>
       ))}
     </FlexContainer>
   );

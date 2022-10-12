@@ -11,5 +11,6 @@ export enum EnumHotKeys {
 export enum EnumScaleConstants {
   minutes = 150000,
   hours   = 1800000,
-  days    = 21600000,
+  days    = 43200000,
+  months = 1296000000,
 }

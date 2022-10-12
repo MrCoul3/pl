@@ -12,6 +12,7 @@ interface IProps {
   jContent?: 'center' | 'flex-end' | 'flex-start' | 'space-between';
   alignItems?: 'center' | 'flex-end' | 'flex-start';
   fDirection?:'column' | 'row';
+  alignContent?: string;
   onClick?(): void;
 }
 export const FlexContainer = (props: IProps) => {
@@ -26,7 +27,8 @@ export const FlexContainer = (props: IProps) => {
     justifyContent: props.jContent,
     alignItems: props.alignItems,
     flexDirection: props.fDirection,
-    flexWrap: props.flexWrap
+    flexWrap: props.flexWrap,
+    alignContent: props.alignContent
   };
 
   return (
