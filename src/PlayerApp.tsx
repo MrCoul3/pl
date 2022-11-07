@@ -1,8 +1,9 @@
 import { Player } from "./component/Player/Player";
 import { RecordList } from "./component/RecordList/RecordList";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IRecordData } from "./interfaces/IRecordData";
-import {FlexContainer} from "./component/FlexContainer/FlexContainer";
+import { FlexContainer } from "./component/FlexContainer/FlexContainer";
+import LeftSideMenu from "./component/LeftSideMenu/LeftSideMenu";
 
 export const PlayerApp = () => {
   const [records, setRecords] = useState<Array<IRecordData>>([
@@ -22,8 +23,47 @@ export const PlayerApp = () => {
     );
   }
 
+  const [isDown, setDown] = useState<boolean | null>();
+  const [width, setWidth] = useState<number | null>(null);
+
+  useEffect(() => {
+    function effect() {
+      window.addEventListener("mouseup", () => {
+        setDown(false);
+      });
+    }
+    // effect();
+    return () => {
+      effect();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(isDown);
+    window.addEventListener("mouseup", () => {
+      setDown(false);
+    });
+    window.addEventListener("mousemove", (e) => {
+      if (isDown === true) {
+        setWidth(e.clientX);
+      } else {
+        // setWidth((prevState) => prevState)
+      }
+    });
+  }, [isDown]);
+
+  useEffect(() => {
+    console.log("width", width);
+  }, [width]);
+
   return (
-    <FlexContainer  jContent="space-between">
+    <FlexContainer jContent="space-between">
+      <LeftSideMenu
+        // width={width}
+
+        onDown={() => setDown(true)}
+        onClick={() => {}}
+      />
       <Player input={records} />
       <RecordList onClick={(e, record) => onClick(e, record)} />
     </FlexContainer>
